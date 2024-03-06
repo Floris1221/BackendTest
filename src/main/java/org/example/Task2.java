@@ -6,42 +6,34 @@ public class Task2 {
 
     public static void main(String[] args) {
 
-        //Instruction
-        System.out.println("Enter integers separated by space. Press Enter to finish:");
+        //Input list of Integers
+        String line = InputIO.readIntegerList();
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            String line = scanner.nextLine();
+        //Process Data
+        List<String> pairs = findPairs(line);
 
-            //GetData from input
-            //List<String> uniquePairs =
-            List<String> pairs = findAndPrintPairs(line);
-
-            // Results
-            pairs.forEach(System.out::println);
-
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
+        // Results
+        pairs.forEach(System.out::println);
     }
 
 
-    public static List<String> findAndPrintPairs(String line){
+    public static List<String> findPairs(String line){
         List<String> pairs = new ArrayList<>();
         if (!line.isEmpty()) {
 
+            //Set sorted List of inputted Integers
             List<Integer> numbers = Arrays.stream(line.split("\\s+"))
                     .map(Integer::parseInt)
                     .sorted()
                     .toList();
 
 
-
+            //find and add pairs
             for (int i = 0; i < numbers.size(); i++) {
                 for (int j = i + 1; j < numbers.size(); j++) {
                     if (numbers.get(i) + numbers.get(j) == 13) {
                         String pair = numbers.get(i) + " " + numbers.get(j);
                         pairs.add(pair);
-
                     }
                 }
             }

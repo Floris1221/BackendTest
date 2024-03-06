@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Stream;
 
@@ -10,28 +9,22 @@ public class Task1 {
 
     public static void main(String[] args) {
 
-        //Instruction
-        System.out.println("Enter integers separated by space. Press Enter to finish:");
+        //Input list of Integers
+        String line = InputIO.readIntegerList();
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            String line = scanner.nextLine();
 
-            //GetData from input
-            ResultData resultData = processInput(line);
+        //Process Data
+        ResultData resultData = processInput(line);
 
-            // Results
-            System.out.print("Sorted distinct elements: ");
-            resultData.distinctSorted.forEach(integer -> System.out.print(integer + " "));
-            System.out.println();
-            System.out.println("Total count (including duplicates and invalid inputs): " + resultData.totalCount);
-            System.out.println("Distinct count: " + resultData.distinctSorted.size());
-            if (!resultData.distinctSorted.isEmpty()) {
-                System.out.println("Min: " + resultData.distinctSorted.first());
-                System.out.println("Max: " + resultData.distinctSorted.last());
-            }
-
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+        // Results
+        System.out.print("Sorted distinct elements: ");
+        resultData.distinctSorted.forEach(integer -> System.out.print(integer + " "));
+        System.out.println();
+        System.out.println("Total count (including duplicates and invalid inputs): " + resultData.totalCount);
+        System.out.println("Distinct count: " + resultData.distinctSorted.size());
+        if (!resultData.distinctSorted.isEmpty()) {
+            System.out.println("Min: " + resultData.distinctSorted.first());
+            System.out.println("Max: " + resultData.distinctSorted.last());
         }
     }
 
@@ -47,7 +40,7 @@ public class Task1 {
             totalCount = inputs.length;
 
 
-            //Add parallel do distinctSorted and skipp invalid value
+            //Add to distinctSorted and skipp invalid value
             Stream.of(inputs).parallel().forEach(input -> {
                 try {
                     int number = Integer.parseInt(input);
