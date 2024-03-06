@@ -7,22 +7,22 @@ public class Task2 {
     public static void main(String[] args) {
 
         //Input list of Integers
-        String line = InputIO.readIntegerList();
+        String inputLine = InputIO.readIntegerList();
 
         //Process Data
-        List<String> pairs = findPairs(line);
+        List<String> pairs = findPairs(inputLine);
 
         // Results
         pairs.forEach(System.out::println);
     }
 
 
-    public static List<String> findPairs(String line){
+    public static List<String> findPairs(String inputLine){
         List<String> pairs = new ArrayList<>();
-        if (!line.isEmpty()) {
+        if (!inputLine.isEmpty()) {
 
             //Set sorted List of inputted Integers
-            List<Integer> numbers = Arrays.stream(line.split("\\s+"))
+            List<Integer> numbers = Arrays.stream(inputLine.split("\\s+"))
                     .map(Integer::parseInt)
                     .sorted()
                     .toList();

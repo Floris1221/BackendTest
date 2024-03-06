@@ -8,13 +8,11 @@ public class Task1 {
 
 
     public static void main(String[] args) {
-
         //Input list of Integers
-        String line = InputIO.readIntegerList();
-
+        String inputLine = InputIO.readIntegerList();
 
         //Process Data
-        ResultData resultData = processInput(line);
+        ResultData resultData = processInput(inputLine);
 
         // Results
         System.out.print("Sorted distinct elements: ");
@@ -29,19 +27,18 @@ public class Task1 {
     }
 
 
-    public static ResultData processInput(String line){
+    public static ResultData processInput(String inputLine){
 
-        if (!line.isEmpty()) {
+        if (!inputLine.isEmpty()) {
             ConcurrentSkipListSet<Integer> distinctSorted = new ConcurrentSkipListSet<>();
             long totalCount = 0;
 
             //Set array of inputs
-            String[] inputs = line.split("\\s+");
-            totalCount = inputs.length;
-
+            String[] inputsStrings = inputLine.split("\\s+");
+            totalCount = inputsStrings.length;
 
             //Add to distinctSorted and skipp invalid value
-            Stream.of(inputs).parallel().forEach(input -> {
+            Stream.of(inputsStrings).parallel().forEach(input -> {
                 try {
                     int number = Integer.parseInt(input);
                     distinctSorted.add(number);

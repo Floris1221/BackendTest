@@ -8,10 +8,10 @@ public class Task3 {
     public static void main(String[] args) {
 
         // Read the number of edges from the user input
-        int n = InputIO.readInt("Enter the number of edges:");
+        int numberOfEdges = InputIO.readInt("Enter the number of edges:");
 
         // Read the edges
-        int[][] edges = InputIO.readEdges(n);
+        int[][] edges = InputIO.readEdges(numberOfEdges);
 
         // Calculate and print the number of separate graphs formed by these edges
         System.out.println(countSeparatedGraphs(edges));
@@ -20,12 +20,12 @@ public class Task3 {
     }
 
     public static int countSeparatedGraphs(int[][] edges) {
-        UnionFind uf = new UnionFind();
+        UnionFind unionFind = new UnionFind();
 
         for (int[] edge : edges) {
-            uf.union(edge[0], edge[1]);
+            unionFind.union(edge[0], edge[1]);
         }
-        return (int) uf.parent.keySet().stream().filter(key -> uf.find(key) == key).count();
+        return (int) unionFind.parent.keySet().stream().filter(key -> unionFind.find(key) == key).count();
     }
 
 
@@ -35,18 +35,18 @@ public class Task3 {
         private Map<Integer, Integer> parent = new HashMap<>();
 
         // Finds the representative of the set to which 'x' belongs and compresses the path along the way.
-        public int find(int x) {
-            if (!parent.containsKey(x)) parent.put(x, x);
-            if (x != parent.get(x)) {
-                parent.put(x, find(parent.get(x)));
+        public int find(int edge) {
+            if (!parent.containsKey(edge)) parent.put(edge, edge);
+            if (edge != parent.get(edge)) {
+                parent.put(edge, find(parent.get(edge)));
             }
-            return parent.get(x);
+            return parent.get(edge);
         }
 
         // Unites the sets containing 'x' and 'y' by setting their representatives to be the same.
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
+        public void union(int edgeX, int edgeY) {
+            int rootX = find(edgeX);
+            int rootY = find(edgeY);
             if (rootX != rootY) {
                 parent.put(rootY, rootX);
             }
